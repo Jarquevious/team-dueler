@@ -66,11 +66,11 @@ class Hero:
 
     def add_kill(self, num_kills):
         # adds kills to total stats
-        self.kills = self.kills + num_kills
+        self.kills += num_kills
     
     def add_deaths(self, num_deaths):
         # adds deaths to total stats
-        self.deaths = self.deaths + num_deaths
+        self.deaths += num_deaths
 
     def add_ability(self, ability):
         ''' Add ability to abilities list '''
@@ -78,6 +78,11 @@ class Hero:
         # in the Rainbow Checklist tutorial. This time,
         # we're not adding strings, instead we'll add ability objects.
         self.abilities.append(ability)
+
+class Team:
+    def __init__(self, name)
+        self.name = name 
+        self.heroes = []
 
     def attack(self):
         '''Calculate the total damage from all ability attacks.
@@ -115,7 +120,6 @@ class Hero:
         # minus the the amount returned from calling self.defend(damage).
         defense = self.defend()    
         self.current_health -= damage - defense
-
 
     def is_alive(self):  
         '''Return True or False depending on whether the hero is alive or not.'''
@@ -156,7 +160,54 @@ class Hero:
                 self.add_kill(1)
                 return
 
-        
+    def stats(self):
+        '''Print team statistics'''
+        for hero in self.heroes:
+            kd = hero.kills / hero.deaths
+            print("{} Kill/Deaths:{}".format(hero.name,kd))
+
+
+
+
+    def revive_heroes(self, health=100):
+        ''' Reset all heroes health to starting_health'''
+        # TODO: for each hero in self.heroes,
+        # set the hero's current_health to their starting_health
+        for hero in self.heroes:
+            hero.current_health = 100
+            hero.status = "Alive"
+   
+    def attack(self, opponents):
+        ''' Battle each hero against each other.'''
+
+        living_heroes = list()
+        living_opponents = list()
+
+        for hero in self.heroes:
+            living_heroes.append(hero)
+
+        for hero in opponents.heroes:
+            living_opponents.append(hero)
+
+        while len(living_heroes) > 0 and len(living_opponents)> 0:
+            # TODO: Complete the following steps:
+            # 1) Randomly select a living hero from each team (hint: look up what random.choice does)
+            # 2) have the heroes fight each other (Hint: Use the fight method in the Hero class.)
+            # 3) update the list of living_heroes and living_opponents
+            # to reflect the result of the fight
+            first_random_hero = self.heroes[random.choice(living_heroes)]
+            second_random_hero = opponents.heroes[random.choice(living_opponents)]
+
+            first_random_hero.fight(second_random_hero)
+            
+            for hero in living_heroes:
+                if hero == 'Dead':
+                    hero.append.
+
+
+
+
+
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
